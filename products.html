@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyit - Products</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo-link">
+            <div class="logo">Buy<span>it</span></div>
+        </a>
+
+        <form class="search-container" id="search-form">
+            <input type="search" id="search-input" placeholder="Search products..." required>
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Shop</a></li>
+            <li><a href="account.html">Account</a></li>
+            <li><a href="#login" class="login-btn">Login</a></li>
+            <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+        </ul>
+    </nav>
+
+    <section class="categories">
+        <h2>Shop by Category</h2>
+        <div class="category-grid">
+            <a href="#mobiles" class="category-card">Mobiles</a>
+            <a href="#laptops" class="category-card">Laptops</a>
+            <a href="#clothes" class="category-card">Clothes</a>
+            <a href="#shoes" class="category-card">Shoes</a>
+        </div>
+    </section>
+
+    <!-- Mobiles Category -->
+    <section id="mobiles">
+        <h2>Smartphones at the best deals</h2>
+        <div class="product-grid">
+
+            <div class="product-card">
+                <a href="product-details.html#motorola-edge">
+                    <img src="images/mobile-image.jpg" alt="Motorola">
+                    <h3>MOTOROLA Edge 60 Fusion 5G</h3>
+                    <p class="price">₹29,999</p>
+                </a>
+                <button class="add-to-cart"
+                    onclick="addToCart('motorola-edge', 'MOTOROLA Edge 60 Fusion 5G', '29999', 'images/mobile-image.jpg')">Add
+                    to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <a href="product-details.html#samsung-f70e">
+                    <img src="images/samsungF70e.jpg" alt="Samsung F70e">
+                    <h3>Samsung Galaxy F70e 5G</h3>
+                    <p class="price">₹13,499</p>
+                </a>
+                <button class="add-to-cart"
+                    onclick="addToCart('samsung-f70e', 'Samsung Galaxy F70e 5G', '13499', 'images/samsungF70e.jpg')">Add
+                    to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <a href="product-details.html#vivo-x200t">
+                    <img src="https://rukminim2.flixcart.com/image/1366/1366/xif0q/mobile/m/9/q/-original-imahjzxkrfjzvgzy.jpeg?q=90"
+                        alt="vivo X200T">
+                    <h3>vivo X200T</h3>
+                    <p class="price">₹64,999</p>
+                </a>
+                <button class="add-to-cart"
+                    onclick="addToCart('vivo-x200t', 'vivo X200T', '64999', 'https://rukminim2.flixcart.com/image/1366/1366/xif0q/mobile/m/9/q/-original-imahjzxkrfjzvgzy.jpeg?q=90')">Add
+                    to Cart</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Laptops Category -->
+    <section id="laptops" style="background-color: white;">
+        <h2>Laptops for Work and Play</h2>
+        <div class="product-grid">
+
+            <div class="product-card">
+                <a href="product-details.html#lenovo-ideapad">
+                    <img src="images/laptop-image.jpg" alt="Lenovo IdeaPad">
+                    <h3>Lenovo IdeaPad Slim 3</h3>
+                    <p class="price">₹69,999</p>
+                </a>
+                <button class="add-to-cart"
+                    onclick="addToCart('lenovo-ideapad', 'Lenovo IdeaPad Slim 3', '69999', 'images/laptop-image.jpg')">Add
+                    to Cart</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Clothes Category -->
+    <section id="clothes">
+        <h2>Trending Clothes</h2>
+        <div class="product-grid">
+
+            <div class="product-card">
+                <a href="product-details.html#mens-tshirt">
+                    <img src="https://rukminim2.flixcart.com/image/1242/1242/xif0q/t-shirt/6/v/o/xl-mn23-rn-rgln-hs-os-nvy-lgry-bstn-maniac-original-imags7j7skmd6tpr.jpeg?q=90"
+                        alt="Men's T-Shirt">
+                    <h3>Cotton Graphic T-Shirt</h3>
+                    <p class="price">₹799</p>
+                </a>
+                <button class="add-to-cart"
+                    onclick="addToCart('mens-tshirt', 'Cotton Graphic T-Shirt', '799', 'https://rukminim2.flixcart.com/image/1242/1242/xif0q/t-shirt/6/v/o/xl-mn23-rn-rgln-hs-os-nvy-lgry-bstn-maniac-original-imags7j7skmd6tpr.jpeg?q=90')">Add
+                    to Cart</button>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Buyit. All rights reserved.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

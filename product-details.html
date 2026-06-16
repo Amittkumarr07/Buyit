@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyit - Product Details</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo-link">
+            <div class="logo">Buy<span>it</span></div>
+        </a>
+        <form class="search-container" id="search-form">
+            <input type="search" id="search-input" placeholder="Search products..." required>
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Shop</a></li>
+            <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+        </ul>
+    </nav>
+
+    <!-- MOTOROLA EDGE DETAILS -->
+    <section id="motorola-edge" class="product-detail-section">
+        <div class="product-details-wrapper">
+            <div class="product-image-container">
+                <img src="images/mobile-image.jpg" alt="Motorola Edge">
+            </div>
+            <div class="product-info-container">
+                <h1>MOTOROLA Edge 60 Fusion 5G</h1>
+                <div class="rating"><i class="fa-solid fa-star"></i> 4.5 (2,304 Ratings)</div>
+                <p class="price large-price">₹29,999.0</p>
+
+                <div class="product-section">
+                    <h3>Description</h3>
+                    <p>A high-performance 5G smartphone featuring a sleek design, immersive 144Hz pOLED curved display,
+                        and excellent 50MP camera capabilities.</p>
+                </div>
+
+                <div class="product-section offers">
+                    <h3>Available Offers</h3>
+                    <ul>
+                        <li>Bank Offer: 10% off on Select Credit Cards.</li>
+                        <li>Special Price: Get extra ₹2000 off.</li>
+                    </ul>
+                </div>
+
+                <div class="product-section options">
+                    <div class="option-group">
+                        <h4>Color</h4>
+                        <select class="option-dropdown">
+                            <option>Marshmallow Blue</option>
+                            <option>Hot Pink</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="action-section">
+                    <div class="button-group">
+                        <button class="btn large-btn add-to-cart"
+                            onclick="addToCart('motorola-edge', 'MOTOROLA Edge 60 Fusion 5G', '29999', 'images/mobile-image.jpg')">Add
+                            to Cart</button>
+                        <button>Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LENOVO LAPTOP DETAILS -->
+    <section id="lenovo-ideapad" class="product-detail-section">
+        <div class="product-details-wrapper">
+            <div class="product-image-container">
+                <img src="images/laptop-image.jpg" alt="Lenovo IdeaPad">
+            </div>
+            <div class="product-info-container">
+                <h1>Lenovo IdeaPad Slim 3</h1>
+                <div class="rating"><i class="fa-solid fa-star"></i> 4.8 (1,102 Ratings)</div>
+                <p class="price large-price">₹69,999.0</p>
+
+                <div class="product-section">
+                    <h3>Description</h3>
+                    <p>A lightweight and powerful laptop perfect for students and professionals on the go. Features an
+                        Intel Core i5 processor and 512GB SSD.</p>
+                </div>
+
+                <div class="product-section options">
+                    <div class="option-group">
+                        <h4>RAM</h4>
+                        <select class="option-dropdown">
+                            <option>8GB RAM</option>
+                            <option>16GB RAM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="action-section">
+                    <div class="button-group">
+                        <button class="btn large-btn add-to-cart"
+                            onclick="addToCart('lenovo-ideapad', 'Lenovo IdeaPad Slim 3', '69999', 'images/laptop-image.jpg')">Add
+                            to Cart</button>
+                        <button>Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENS T-SHIRT DETAILS -->
+    <section id="mens-tshirt" class="product-detail-section">
+        <div class="product-details-wrapper">
+            <div class="product-image-container">
+                <img src="https://rukminim2.flixcart.com/image/1242/1242/xif0q/t-shirt/6/v/o/xl-mn23-rn-rgln-hs-os-nvy-lgry-bstn-maniac-original-imags7j7skmd6tpr.jpeg?q=90"
+                    alt="Men's T-Shirt">
+            </div>
+            <div class="product-info-container">
+                <h1>Cotton Graphic T-Shirt</h1>
+                <div class="rating"><i class="fa-solid fa-star"></i> 4.1 (856 Ratings)</div>
+                <p class="price large-price">₹799.0</p>
+
+                <div class="product-section">
+                    <h3>Description</h3>
+                    <p>Premium 100% breathable cotton t-shirt with a modern graphic print. Pre-shrunk fabric ensures a
+                        perfect fit wash after wash.</p>
+                </div>
+
+                <div class="product-section options">
+                    <div class="option-group">
+                        <h4>Size</h4>
+                        <select class="option-dropdown">
+                            <option>Small (S)</option>
+                            <option>Medium (M)</option>
+                            <option>Large (L)</option>
+                            <option>Extra Large (XL)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="action-section">
+                    <div class="button-group">
+                        <button class="btn large-btn add-to-cart"
+                            onclick="addToCart('mens-tshirt', 'Cotton Graphic T-Shirt', '799', 'images/tshirt-image.jpg')">Add
+                            to Cart</button>
+                        <button>Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- if the product is not list this massage will show -->
+    <section class="default-message">
+        <h2>Please select a product from the shop.</h2>
+        <a href="products.html" class="btn" style="width: auto; display: inline-block; padding: 10px 30px;">Go to
+            Shop</a>
+    </section>
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

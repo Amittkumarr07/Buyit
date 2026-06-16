@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyit - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo-link">
+            <div class="logo">Buy<span>it</span></div>
+        </a>
+
+        <form class="search-container" id="search-form">
+            <input type="search" id="search-input" placeholder="Search products..." required>
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Shop</a></li>
+            <li><a href="account.html">Account</a></li>
+            <li><a href="#login" class="login-btn">Login</a></li>
+            <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+        </ul>
+    </nav>
+
+    <header class="main-banner">
+        <img src="images/Banner.jpg" alt="Promotional Banner">
+    </header>
+
+    <section class="categories">
+        <h2>Shop by Category</h2>
+        <div class="category-grid">
+            <a href="products.html#mobiles" class="category-card">Mobiles</a>
+            <a href="products.html#laptops" class="category-card">Laptops</a>
+            <a href="products.html#clothes" class="category-card">Clothes</a>
+            <a href="products.html#shoes" class="category-card">Shoes</a>
+            <a href="products.html#watches" class="category-card">Watches</a>
+            <a href="products.html#headphones" class="category-card">Headphones</a>
+            <a href="products.html#books" class="category-card">Books</a>
+        </div>
+    </section>
+
+    <section class="featured-products">
+        <h2>Featured Products</h2>
+        <div class="product-grid">
+
+            <div class="product-card">
+                <a href="product-details.html#motorola-edge">
+                    <img src="images/mobile-image.jpg" alt="Smartphone">
+                    <h3>MOTOROLA Edge 60 Fusion 5G</h3>
+                    <p class="price">₹29,999.0</p>
+                </a>
+                <button class="add-to-cart"
+                    onclick="addToCart('motorola-edge', 'MOTOROLA Edge 60 Fusion 5G', '29999', 'images/mobile-image.jpg')">Add
+                    to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <a href="product-details.html#lenovo-ideapad">
+                    <img src="images/laptop-image.jpg" alt="Laptop">
+                    <h3>Lenovo IdeaPad Slim 3</h3>
+                    <p class="price">₹69,999.0</p>
+                </a>
+                <button class="add-to-cart"
+                    onclick="addToCart('lenovo-ideapad', 'Lenovo IdeaPad Slim 3', '69999', 'images/laptop-image.jpg')">Add
+                    to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <a href="product-details.html#running-shoes">
+                    <img src="images/shoes-image.jpg" alt="Running Shoes">
+                    <h3>Running Shoes</h3>
+                    <p class="price">₹3,999.0</p>
+                </a>
+                <button class="add-to-cart"
+                    onclick="addToCart('running-shoes', 'Running Shoes', '3999', 'images/shoes-image.jpg')">Add to
+                    Cart</button>
+            </div>
+
+        </div>
+        <div style="margin-top: 30px; text-align: center;">
+            <a href="products.html" class="btn" style="width: auto; display: inline-block; padding: 10px 30px;">See
+                more</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Buyit. All rights reserved.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
