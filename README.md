@@ -26,5 +26,5 @@ This website also contains many sub-pages like:
 <h3>JavaScript</h3>
 <ul>
   <li>script.js: use for the function like adding the products to cart and searching products.</li>
-  <li>auth.js: use for the authencation (Back-end by firebase console) and handling the user.</li>
+  <li>auth.js: use for the authentication (Back-end by firebase console) and handling the user.</li>
 </ul>
