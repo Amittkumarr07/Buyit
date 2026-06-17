@@ -23,11 +23,17 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="products.html">Shop</a></li>
+                    
+            <li id="nav-login-btn"><a href="login.html" class="login-btn">Login</a></li>
+                    
+            <li id="nav-user-profile" style="display: none;">
+                <a href="account.html" id="nav-username" style="color: var(--primary-color); font-weight: bold;">User</a>
+            </li>
+                    
             <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
         </ul>
     </nav>
 
-    <!-- MOTOROLA EDGE DETAILS -->
     <section id="motorola-edge" class="product-detail-section">
         <div class="product-details-wrapper">
             <div class="product-image-container">
@@ -74,7 +80,6 @@
         </div>
     </section>
 
-    <!-- LENOVO LAPTOP DETAILS -->
     <section id="lenovo-ideapad" class="product-detail-section">
         <div class="product-details-wrapper">
             <div class="product-image-container">
@@ -113,7 +118,6 @@
         </div>
     </section>
 
-    <!-- MENS T-SHIRT DETAILS -->
     <section id="mens-tshirt" class="product-detail-section">
         <div class="product-details-wrapper">
             <div class="product-image-container">
@@ -155,7 +159,6 @@
         </div>
     </section>
 
-    <!-- if the product is not list this massage will show -->
     <section class="default-message">
         <h2>Please select a product from the shop.</h2>
         <a href="products.html" class="btn" style="width: auto; display: inline-block; padding: 10px 30px;">Go to
@@ -163,7 +166,6 @@
     </section>
 
     <script src="js/script.js"></script>
-
+    <script type="module" src="js/auth.js"></script>
 </body>
-
 </html>

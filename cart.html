@@ -24,7 +24,13 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="products.html">Shop</a></li>
-            <li><a href="account.html">Account</a></li>
+                    
+            <li id="nav-login-btn"><a href="login.html" class="login-btn">Login</a></li>
+                    
+            <li id="nav-user-profile" style="display: none;">
+                <a href="account.html" id="nav-username" style="color: var(--primary-color); font-weight: bold;">User</a>
+            </li>
+                    
             <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
         </ul>
     </nav>
@@ -58,11 +64,11 @@
     </section>
 
     <script src="js/script.js"></script>
-
+    <script type="module" src="js/auth.js"></script>
+    
     <footer>
         <p>&copy; 2026 Buyit. All rights reserved.</p>
     </footer>
 
 </body>
-
 </html>

@@ -25,8 +25,13 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="products.html">Shop</a></li>
-            <li><a href="account.html">Account</a></li>
-            <li><a href="#login" class="login-btn">Login</a></li>
+                    
+            <li id="nav-login-btn"><a href="login.html" class="login-btn">Login</a></li>
+                    
+            <li id="nav-user-profile" style="display: none;">
+                <a href="account.html" id="nav-username" style="color: var(--primary-color); font-weight: bold;">User</a>
+            </li>
+                    
             <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
         </ul>
     </nav>
@@ -41,7 +46,6 @@
         </div>
     </section>
 
-    <!-- Mobiles Category -->
     <section id="mobiles">
         <h2>Smartphones at the best deals</h2>
         <div class="product-grid">
@@ -83,7 +87,6 @@
         </div>
     </section>
 
-    <!-- Laptops Category -->
     <section id="laptops" style="background-color: white;">
         <h2>Laptops for Work and Play</h2>
         <div class="product-grid">
@@ -102,7 +105,6 @@
         </div>
     </section>
 
-    <!-- Clothes Category -->
     <section id="clothes">
         <h2>Trending Clothes</h2>
         <div class="product-grid">
@@ -127,6 +129,6 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script type="module" src="js/auth.js"></script>
 </body>
-
 </html>
