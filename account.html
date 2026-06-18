@@ -10,7 +10,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="/" class="logo-link"><div class="logo">Buy<span>it</span></div></a>
+        <a href="index.html" class="logo-link"><div class="logo">Buy<span>it</span></div></a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="products.html">Shop</a></li>
@@ -71,7 +71,6 @@
     <script type="module">
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         // auth.js handles the redirect if not logged in
-        // We just need to update the account-username display
         document.addEventListener('DOMContentLoaded', () => {
             // auth.js already sets user-email; set the username heading too
             const emailEl = document.getElementById('user-email');
