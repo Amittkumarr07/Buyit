@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buyit - My Account</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -12,23 +14,76 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="products.html">Shop</a></li>
-                    
             <li id="nav-login-btn"><a href="login.html" class="login-btn">Login</a></li>
-                    
             <li id="nav-user-profile" style="display: none;">
                 <a href="account.html" id="nav-username" style="color: var(--primary-color); font-weight: bold;">User</a>
             </li>
-                    
             <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
         </ul>
     </nav>
 
-    <section style="max-width: 600px; margin: 50px auto; text-align: center; padding: 40px; background: white; border-radius: 8px;">
-        <h2>Welcome to your Account</h2>
-        <p style="margin: 20px 0; font-size: 1.2rem;">You are securely logged in as:</p>
-        <h3 id="user-email" style="color: var(--primary-color);">Loading...</h3>
+    <section class="account-section">
+        <div class="account-card">
+            <div class="account-avatar">
+                <i class="fa-solid fa-circle-user"></i>
+            </div>
+            <h2 id="account-username">Loading...</h2>
+            <p id="user-email" class="account-email">Loading...</p>
+
+            <div class="account-menu">
+                <a href="orders.html" class="account-menu-item">
+                    <i class="fa-solid fa-box"></i>
+                    <div>
+                        <strong>My Orders</strong>
+                        <p>Track, return or cancel an order</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                </a>
+                <a href="cart.html" class="account-menu-item">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <div>
+                        <strong>My Cart</strong>
+                        <p>View items in your cart</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                </a>
+                <a href="checkout.html" class="account-menu-item">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <div>
+                        <strong>Checkout</strong>
+                        <p>Complete your pending purchase</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                </a>
+            </div>
+
+            <button id="logout-btn" class="btn logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+        </div>
     </section>
 
+    <footer>
+        <p>&copy; 2026 Buyit. All rights reserved.</p>
+    </footer>
+
     <script type="module" src="js/auth.js"></script>
+    <script type="module">
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        // auth.js handles the redirect if not logged in
+        // We just need to update the account-username display
+        document.addEventListener('DOMContentLoaded', () => {
+            // auth.js already sets user-email; set the username heading too
+            const emailEl = document.getElementById('user-email');
+            const observer = new MutationObserver(() => {
+                const email = emailEl.textContent;
+                if (email && email !== 'Loading...') {
+                    const name = email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                    document.getElementById('account-username').textContent = name;
+                }
+            });
+            observer.observe(emailEl, { childList: true, characterData: true, subtree: true });
+        });
+    </script>
 </body>
 </html>

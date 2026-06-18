@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyit - My Orders</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo-link">
+            <div class="logo">Buy<span>it</span></div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Shop</a></li>
+            <li id="nav-login-btn"><a href="login.html" class="login-btn">Login</a></li>
+            <li id="nav-user-profile" style="display: none;">
+                <a href="account.html" id="nav-username" style="color: var(--primary-color); font-weight: bold;">User</a>
+            </li>
+            <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+        </ul>
+    </nav>
+
+    <section class="orders-section">
+        <div class="orders-header">
+            <h2>My Orders</h2>
+            <a href="products.html" class="btn outline-btn" style="width:auto; display:inline-block; padding: 8px 20px;">Continue Shopping</a>
+        </div>
+
+        <div id="orders-container">
+            <p class="loading-text">Loading your orders...</p>
+        </div>
+    </section>
+
+    <!-- Cancel Confirmation Modal -->
+    <div class="modal-overlay hidden" id="cancel-modal">
+        <div class="modal-box">
+            <div class="modal-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h3>Cancel This Order?</h3>
+            <p>Are you sure you want to cancel order <strong id="modal-order-id"></strong>? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="btn outline-btn" onclick="closeModal()">Keep Order</button>
+                <button class="btn cancel-confirm-btn" id="confirm-cancel-btn">Yes, Cancel It</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Buyit. All rights reserved.</p>
+    </footer>
+
+    <script type="module" src="js/auth.js"></script>
+    <script>
+        let pendingCancelOrderId = null;
+
+        function getStatusBadgeClass(status) {
+            const map = {
+                'Placed': 'status-placed',
+                'Processing': 'status-processing',
+                'Shipped': 'status-shipped',
+                'Delivered': 'status-delivered',
+                'Cancelled': 'status-cancelled'
+            };
+            return map[status] || 'status-placed';
+        }
+
+        function getStatusIcon(status) {
+            const map = {
+                'Placed': 'fa-clock',
+                'Processing': 'fa-gear',
+                'Shipped': 'fa-truck',
+                'Delivered': 'fa-circle-check',
+                'Cancelled': 'fa-ban'
+            };
+            return map[status] || 'fa-clock';
+        }
+
+        function renderOrders() {
+            const container = document.getElementById('orders-container');
+            const allOrders = JSON.parse(localStorage.getItem('buyit_orders')) || [];
+
+            if (allOrders.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-orders">
+                        <i class="fa-solid fa-box-open"></i>
+                        <h3>No orders yet</h3>
+                        <p>Looks like you haven't placed any orders. Start shopping!</p>
+                        <a href="products.html" class="btn" style="width:auto;display:inline-block;padding:10px 30px;margin-top:15px;">Shop Now</a>
+                    </div>
+                `;
+                return;
+            }
+
+            // Show newest first
+            const sorted = [...allOrders].reverse();
+            container.innerHTML = '';
+
+            sorted.forEach(order => {
+                const isCancellable = order.status !== 'Delivered' && order.status !== 'Cancelled';
+                const itemsHTML = order.items.map(item => `
+                    <div class="order-item-row">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="order-item-info">
+                            <strong>${item.name}</strong>
+                            <p>Qty: ${item.quantity} &nbsp;&nbsp; ₹${Number(item.price).toLocaleString('en-IN')} each</p>
+                        </div>
+                    </div>
+                `).join('');
+
+                container.innerHTML += `
+                    <div class="order-card" id="order-card-${order.orderId}">
+                        <div class="order-card-header">
+                            <div class="order-meta">
+                                <span class="order-id">Order #${order.orderId}</span>
+                                <span class="order-date"><i class="fa-regular fa-calendar"></i> ${order.orderDate}</span>
+                            </div>
+                            <span class="status-badge ${getStatusBadgeClass(order.status)}">
+                                <i class="fa-solid ${getStatusIcon(order.status)}"></i> ${order.status}
+                            </span>
+                        </div>
+
+                        <div class="order-items-list">
+                            ${itemsHTML}
+                        </div>
+
+                        <div class="order-card-footer">
+                            <div class="order-footer-info">
+                                <p><i class="fa-solid fa-location-dot"></i> ${order.address}</p>
+                                <p><i class="fa-solid fa-truck"></i> Expected by <strong>${order.deliveryDate}</strong></p>
+                                <p><i class="fa-solid fa-wallet"></i> ${order.paymentMethod}</p>
+                            </div>
+                            <div class="order-footer-total">
+                                <span class="order-total-label">Order Total</span>
+                                <span class="order-total-amount">₹${Number(order.total).toLocaleString('en-IN')}</span>
+                                ${isCancellable ? `
+                                    <button class="btn cancel-order-btn" onclick="openCancelModal('${order.orderId}')">
+                                        <i class="fa-solid fa-xmark"></i> Cancel Order
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function openCancelModal(orderId) {
+            pendingCancelOrderId = orderId;
+            document.getElementById('modal-order-id').textContent = '#' + orderId;
+            document.getElementById('cancel-modal').classList.remove('hidden');
+            document.getElementById('confirm-cancel-btn').onclick = () => confirmCancel(orderId);
+        }
+
+        function closeModal() {
+            document.getElementById('cancel-modal').classList.add('hidden');
+            pendingCancelOrderId = null;
+        }
+
+        function confirmCancel(orderId) {
+            let orders = JSON.parse(localStorage.getItem('buyit_orders')) || [];
+            const idx = orders.findIndex(o => o.orderId === orderId);
+            if (idx !== -1) {
+                orders[idx].status = 'Cancelled';
+                localStorage.setItem('buyit_orders', JSON.stringify(orders));
+            }
+            closeModal();
+            renderOrders();
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('cancel-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        window.addEventListener('DOMContentLoaded', renderOrders);
+    </script>
+</body>
+</html>

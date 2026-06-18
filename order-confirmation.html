@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyit - Order Confirmed!</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo-link">
+            <div class="logo">Buy<span>it</span></div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Shop</a></li>
+            <li id="nav-login-btn"><a href="login.html" class="login-btn">Login</a></li>
+            <li id="nav-user-profile" style="display: none;">
+                <a href="account.html" id="nav-username" style="color: var(--primary-color); font-weight: bold;">User</a>
+            </li>
+            <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+        </ul>
+    </nav>
+
+    <section class="confirmation-section">
+        <div class="confirmation-card">
+            <div class="confirmation-icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h1>Order Placed Successfully!</h1>
+            <p class="confirmation-subtitle">Thank you for shopping with Buyit. A confirmation email has been sent to your registered email address.</p>
+
+            <div class="confirmation-details">
+                <div class="detail-row">
+                    <span class="detail-label">Order ID</span>
+                    <span class="detail-value" id="conf-order-id">—</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Order Date</span>
+                    <span class="detail-value" id="conf-order-date">—</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Expected Delivery</span>
+                    <span class="detail-value" id="conf-delivery-date">—</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Payment Method</span>
+                    <span class="detail-value" id="conf-payment">—</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Delivering to</span>
+                    <span class="detail-value" id="conf-address">—</span>
+                </div>
+                <div class="detail-row total-row">
+                    <span class="detail-label">Total Paid</span>
+                    <span class="detail-value" id="conf-total">—</span>
+                </div>
+            </div>
+
+            <div class="confirmation-items">
+                <h3>Items Ordered</h3>
+                <div id="conf-items-list"></div>
+            </div>
+
+            <div class="confirmation-actions">
+                <a href="orders.html" class="btn" style="display:inline-block; width:auto; padding: 12px 30px;">
+                    <i class="fa-solid fa-box"></i> View My Orders
+                </a>
+                <a href="products.html" class="btn outline-btn" style="display:inline-block; width:auto; padding: 12px 30px; margin-left: 15px;">
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Buyit. All rights reserved.</p>
+    </footer>
+
+    <script type="module" src="js/auth.js"></script>
+    <script>
+        // Load confirmation details from sessionStorage
+        window.addEventListener('DOMContentLoaded', () => {
+            const orderData = JSON.parse(sessionStorage.getItem('buyit_last_order'));
+
+            if (!orderData) {
+                document.querySelector('.confirmation-card').innerHTML = `
+                    <h2>No recent order found.</h2>
+                    <a href="index.html" class="btn" style="display:inline-block;width:auto;margin-top:20px;padding:10px 30px;">Go Home</a>
+                `;
+                return;
+            }
+
+            document.getElementById('conf-order-id').textContent = orderData.orderId;
+            document.getElementById('conf-order-date').textContent = orderData.orderDate;
+            document.getElementById('conf-delivery-date').textContent = orderData.deliveryDate;
+            document.getElementById('conf-payment').textContent = orderData.paymentMethod;
+            document.getElementById('conf-address').textContent = orderData.address;
+            document.getElementById('conf-total').textContent = '₹' + Number(orderData.total).toLocaleString('en-IN');
+
+            const itemsList = document.getElementById('conf-items-list');
+            orderData.items.forEach(item => {
+                itemsList.innerHTML += `
+                    <div class="conf-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div>
+                            <strong>${item.name}</strong>
+                            <p>Qty: ${item.quantity} &nbsp;|&nbsp; ₹${Number(item.price).toLocaleString('en-IN')} each</p>
+                        </div>
+                    </div>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>
