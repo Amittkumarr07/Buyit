@@ -1,10 +1,10 @@
 # Buyit - In Your Way
 
-An interactive e-commerce web application built from scratch using HTML, CSS, and vanilla JavaScript. This project was developed as a 2nd-year internship project to demonstrate core frontend development skills, state management, and third-party API integration.
+An interactive e-commerce web application built from scratch using HTML, CSS, and JavaScript. This project was developed as a 2nd-year internship project to demonstrate core frontend development skills, state management, and third-party API integration.
 
 Currently, this is a dedicated frontend application. Future updates are planned to introduce a robust backend system to handle secure payment processing and provide a deeply personalized user experience.
 
-## Technical Architecture
+## Architecture of this web application
 
 The project is structured to prioritize code reuse and visual consistency. Rather than writing unique styles and scripts for every single page, the application relies on a centralized CSS file and modular JavaScript files.
 
