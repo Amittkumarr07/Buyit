@@ -5,299 +5,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buyit - Product Details</title>
+
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+    <script src="js/layout.js"></script>
 
-    <nav class="navbar">
-        <a href="index.html" class="logo-link">
-            <div class="logo">Buy<span>it</span></div>
-        </a>
-        <form class="search-container" id="search-form">
-            <input type="search" id="search-input" placeholder="Search products..." required>
-            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </form>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="products.html">Shop</a></li>
-                    
-            <li id="nav-login-btn"><a href="login.html" class="login-btn">Login</a></li>
-                    
-            <li id="nav-user-profile" style="display: none;">
-                <a href="account.html" id="nav-username" style="color: var(--primary-color); font-weight: bold;">User</a>
-            </li>
-                    
-            <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
-        </ul>
-    </nav>
+    <div id="pd-root"></div>
 
-    <section id="motorola-edge" class="product-detail-section">
-        <div class="product-details-wrapper">
-            <div class="product-image-container">
-                <img src="images/mobile-image.jpg" alt="Motorola Edge">
-            </div>
-            <div class="product-info-container">
-                <h1>MOTOROLA Edge 60 Fusion 5G</h1>
-                <div class="rating"><i class="fa-solid fa-star"></i> 4.5 (2,304 Ratings)</div>
-                <p class="price large-price">₹29,999.0</p>
-
-                <div class="product-section">
-                    <h3>Description</h3>
-                    <p>A high-performance 5G smartphone featuring a sleek design, immersive 144Hz pOLED curved display,
-                        and excellent 50MP camera capabilities.</p>
-                </div>
-
-                <div class="product-section offers">
-                    <h3>Available Offers</h3>
-                    <ul>
-                        <li>Bank Offer: 10% off on Select Credit Cards.</li>
-                        <li>Special Price: Get extra ₹2000 off.</li>
-                    </ul>
-                </div>
-
-                <div class="product-section options">
-                    <div class="option-group">
-                        <h4>Color</h4>
-                        <select class="option-dropdown">
-                            <option>Marshmallow Blue</option>
-                            <option>Hot Pink</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="action-section">
-                    <div class="button-group">
-                        <button class="btn large-btn add-to-cart"
-                            onclick="addToCart('motorola-edge', 'MOTOROLA Edge 60 Fusion 5G', '29999', 'images/mobile-image.jpg')">Add
-                            to Cart</button>
-                        <button>Buy Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="lenovo-ideapad" class="product-detail-section">
-        <div class="product-details-wrapper">
-            <div class="product-image-container">
-                <img src="images/laptop-image.jpg" alt="Lenovo IdeaPad">
-            </div>
-            <div class="product-info-container">
-                <h1>Lenovo IdeaPad Slim 3</h1>
-                <div class="rating"><i class="fa-solid fa-star"></i> 4.8 (1,102 Ratings)</div>
-                <p class="price large-price">₹69,999.0</p>
-
-                <div class="product-section">
-                    <h3>Description</h3>
-                    <p>A lightweight and powerful laptop perfect for students and professionals on the go. Features an
-                        Intel Core i5 processor and 512GB SSD.</p>
-                </div>
-
-                <div class="product-section options">
-                    <div class="option-group">
-                        <h4>RAM</h4>
-                        <select class="option-dropdown">
-                            <option>8GB RAM</option>
-                            <option>16GB RAM</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="action-section">
-                    <div class="button-group">
-                        <button class="btn large-btn add-to-cart"
-                            onclick="addToCart('lenovo-ideapad', 'Lenovo IdeaPad Slim 3', '69999', 'images/laptop-image.jpg')">Add
-                            to Cart</button>
-                        <button>Buy Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="mens-tshirt" class="product-detail-section">
-        <div class="product-details-wrapper">
-            <div class="product-image-container">
-                <img src="https://rukminim2.flixcart.com/image/1242/1242/xif0q/t-shirt/6/v/o/xl-mn23-rn-rgln-hs-os-nvy-lgry-bstn-maniac-original-imags7j7skmd6tpr.jpeg?q=90"
-                    alt="Men's T-Shirt">
-            </div>
-            <div class="product-info-container">
-                <h1>Cotton Graphic T-Shirt</h1>
-                <div class="rating"><i class="fa-solid fa-star"></i> 4.1 (856 Ratings)</div>
-                <p class="price large-price">₹799.0</p>
-
-                <div class="product-section">
-                    <h3>Description</h3>
-                    <p>Premium 100% breathable cotton t-shirt with a modern graphic print. Pre-shrunk fabric ensures a
-                        perfect fit wash after wash.</p>
-                </div>
-
-                <div class="product-section options">
-                    <div class="option-group">
-                        <h4>Size</h4>
-                        <select class="option-dropdown">
-                            <option>Small (S)</option>
-                            <option>Medium (M)</option>
-                            <option>Large (L)</option>
-                            <option>Extra Large (XL)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="action-section">
-                    <div class="button-group">
-                        <button class="btn large-btn add-to-cart"
-                            onclick="addToCart('mens-tshirt', 'Cotton Graphic T-Shirt', '799', 'images/tshirt-image.jpg')">Add
-                            to Cart</button>
-                            <button class="btn checkout-btn" style="margin-top: 20px;">
-                                Buy Now <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i>
-                            </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="samsung-f70e" class="product-detail-section">
-        <div class="product-details-wrapper">
-            <div class="product-image-container">
-                <img src="images/samsungF70e.jpg" alt="Samsung Galaxy F70e 5G">
-            </div>
-            <div class="product-info-container">
-                <h1>Samsung Galaxy F70e 5G</h1>
-                <div class="rating"><i class="fa-solid fa-star"></i> 4.3 (1,847 Ratings)</div>
-                <p class="price large-price">₹13,499.0</p>
-
-                <div class="product-section">
-                    <h3>Description</h3>
-                    <p>The Samsung Galaxy F70e 5G brings a clean 5G experience at an accessible price. Powered by a capable octa-core processor, it features a large 6.5-inch display, a 50MP triple camera setup, and a long-lasting 5000mAh battery — perfect for everyday users who want reliable performance without breaking the bank.</p>
-                </div>
-
-                <div class="product-section offers">
-                    <h3>Available Offers</h3>
-                    <ul>
-                        <li>Bank Offer: 5% cashback on HDFC Bank Credit Cards.</li>
-                        <li>Exchange Offer: Get up to ₹3,000 off on exchange.</li>
-                        <li>No-cost EMI available from ₹2,250/month.</li>
-                    </ul>
-                </div>
-
-                <div class="product-section options">
-                    <div class="option-group">
-                        <h4>Color</h4>
-                        <select class="option-dropdown">
-                            <option>Midnight Black</option>
-                            <option>Arctic Blue</option>
-                            <option>Jade Green</option>
-                        </select>
-                    </div>
-                    <div class="option-group" style="margin-top: 15px;">
-                        <h4>Storage</h4>
-                        <select class="option-dropdown">
-                            <option>4GB RAM + 128GB</option>
-                            <option>6GB RAM + 128GB</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="product-section">
-                    <h3>Key Specifications</h3>
-                    <table style="width:100%; border-collapse: collapse; font-size: 0.9rem;">
-                        <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px 0; color: #777; width: 40%;">Display</td><td style="padding: 8px 0;">6.5-inch HD+ LCD, 90Hz</td></tr>
-                        <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px 0; color: #777;">Processor</td><td style="padding: 8px 0;">Octa-core 2.2GHz</td></tr>
-                        <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px 0; color: #777;">Camera</td><td style="padding: 8px 0;">50MP + 5MP + 2MP | 8MP Front</td></tr>
-                        <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px 0; color: #777;">Battery</td><td style="padding: 8px 0;">5000mAh, 25W Fast Charging</td></tr>
-                        <tr><td style="padding: 8px 0; color: #777;">OS</td><td style="padding: 8px 0;">Android 14, One UI 6</td></tr>
-                    </table>
-                </div>
-
-                <div class="action-section">
-                    <div class="button-group">
-                        <button class="btn large-btn add-to-cart"
-                            onclick="addToCart('samsung-f70e', 'Samsung Galaxy F70e 5G', '13499', 'images/samsungF70e.jpg')">Add to Cart</button>
-                        <button class="btn checkout-btn" style="margin-top: 20px;">
-                            Buy Now <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="vivo-x200t" class="product-detail-section">
-        <div class="product-details-wrapper">
-            <div class="product-image-container">
-                <img src="https://rukminim2.flixcart.com/image/1366/1366/xif0q/mobile/m/9/q/-original-imahjzxkrfjzvgzy.jpeg?q=90" alt="vivo X200T">
-            </div>
-            <div class="product-info-container">
-                <h1>vivo X200T</h1>
-                <div class="rating"><i class="fa-solid fa-star"></i> 4.6 (983 Ratings)</div>
-                <p class="price large-price">₹64,999.0</p>
-
-                <div class="product-section">
-                    <h3>Description</h3>
-                    <p>The vivo X200T is a flagship-grade smartphone built around Zeiss-tuned optics and top-tier performance. It packs a MediaTek Dimensity 9300+ chipset, a stunning 6.78-inch 144Hz AMOLED display, and a 200MP periscope telephoto camera — delivering professional photography results right from your pocket.</p>
-                </div>
-
-                <div class="product-section offers">
-                    <h3>Available Offers</h3>
-                    <ul>
-                        <li>Bank Offer: 10% instant discount on SBI Credit Cards.</li>
-                        <li>Special Price: Extra ₹5,000 off on select bank cards.</li>
-                        <li>No-cost EMI available from ₹10,833/month.</li>
-                    </ul>
-                </div>
-
-                <div class="product-section options">
-                    <div class="option-group">
-                        <h4>Color</h4>
-                        <select class="option-dropdown">
-                            <option>Titanium Grey</option>
-                            <option>Cosmos Black</option>
-                            <option>Starlight White</option>
-                        </select>
-                    </div>
-                    <div class="option-group" style="margin-top: 15px;">
-                        <h4>Storage</h4>
-                        <select class="option-dropdown">
-                            <option>12GB RAM + 256GB</option>
-                            <option>16GB RAM + 512GB</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="product-section">
-                    <h3>Key Specifications</h3>
-                    <table style="width:100%; border-collapse: collapse; font-size: 0.9rem;">
-                        <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px 0; color: #777; width: 40%;">Display</td><td style="padding: 8px 0;">6.78-inch AMOLED, 144Hz, 2800 nits</td></tr>
-                        <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px 0; color: #777;">Processor</td><td style="padding: 8px 0;">MediaTek Dimensity 9300+</td></tr>
-                        <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px 0; color: #777;">Camera</td><td style="padding: 8px 0;">50MP Main + 200MP Periscope + 50MP Ultra-wide | 32MP Front</td></tr>
-                        <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px 0; color: #777;">Battery</td><td style="padding: 8px 0;">5800mAh, 90W FlashCharge</td></tr>
-                        <tr><td style="padding: 8px 0; color: #777;">OS</td><td style="padding: 8px 0;">Android 15, Funtouch OS 15</td></tr>
-                    </table>
-                </div>
-
-                <div class="action-section">
-                    <div class="button-group">
-                        <button class="btn large-btn add-to-cart"
-                            onclick="addToCart('vivo-x200t', 'vivo X200T', '64999', 'https://rukminim2.flixcart.com/image/1366/1366/xif0q/mobile/m/9/q/-original-imahjzxkrfjzvgzy.jpeg?q=90')">Add to Cart</button>
-                        <button class="btn buy-now">Buy Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="default-message">
-        <h2>Please select a product from the shop.</h2>
-        <a href="products.html" class="btn" style="width: auto; display: inline-block; padding: 10px 30px;">Go to
-            Shop</a>
-    </section>
-
+    <script src="js/products.js"></script>
     <script src="js/script.js"></script>
     <script type="module" src="js/auth.js"></script>
+
+    <script>
+        // The product id comes from the URL, e.g. product-details.html#ikigai
+        function showProduct() {
+            const productId = location.hash.slice(1);
+            const product = PRODUCTS.find(item => item.id === productId);
+            const root = document.getElementById('pd-root');
+
+            if (!product) {
+                root.innerHTML = '<div class="pd"><h2>Product not found.</h2></div>';
+                return;
+            }
+
+            document.title = 'Buyit - ' + product.name;
+
+            root.innerHTML = `
+                <div class="pd">
+                    <div class="pd-img">${imgTag(product)}</div>
+
+                    <div class="pd-info">
+                        <h1>${product.name}</h1>
+                        <p>${product.description}</p>
+                        <div class="pd-price">${rupee(product.price)}</div>
+
+                        <ul class="pd-offers">
+                            <li>Free delivery on this order</li>
+                            <li>Cash on Delivery, UPI and cards accepted</li>
+                            <li>Estimated delivery within 7 days</li>
+                        </ul>
+
+                        <div class="pd-actions">
+                            <button class="btn" id="pd-add">Add to Cart</button>
+                            <button class="btn" id="pd-buy" style="background: #555;">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // "Add to Cart" stays on this page and shows the toast
+            document.getElementById('pd-add').onclick = () => {
+                addToCart(product.id, product.name, product.price, imgOf(product));
+            };
+
+            // "Buy Now" adds the item and goes straight to the cart
+            document.getElementById('pd-buy').onclick = () => {
+                addToCart(product.id, product.name, product.price, imgOf(product));
+                location.href = 'cart.html';
+            };
+        }
+
+        showProduct();
+
+        // Re-draw when the #id in the URL changes without a full page reload
+        addEventListener('hashchange', showProduct);
+    </script>
 </body>
+
 </html>

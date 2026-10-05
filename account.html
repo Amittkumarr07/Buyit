@@ -1,32 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buyit - My Account</title>
+
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
 </head>
-<body>
-    <nav class="navbar">
-        <a href="index.html" class="logo-link"><div class="logo">Buy<span>it</span></div></a>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="products.html">Shop</a></li>
-            <li id="nav-login-btn"><a href="login.html" class="login-btn">Login</a></li>
-            <li id="nav-user-profile" style="display: none;">
-                <a href="account.html" id="nav-username" style="color: var(--primary-color); font-weight: bold;">User</a>
-            </li>
-            <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
-        </ul>
-    </nav>
 
-    <section class="account-section">
+<body>
+    <script src="js/layout.js"></script>
+
+    <section>
         <div class="account-card">
             <div class="account-avatar">
                 <i class="fa-solid fa-circle-user"></i>
             </div>
+
+            <!-- Both are filled in once Firebase tells us who is logged in -->
             <h2 id="account-username">Loading...</h2>
             <p id="user-email" class="account-email">Loading...</p>
 
@@ -37,23 +31,25 @@
                         <strong>My Orders</strong>
                         <p>Track, return or cancel an order</p>
                     </div>
-                    <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                    <i class="fa-solid fa-chevron-right"></i>
                 </a>
+
                 <a href="cart.html" class="account-menu-item">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <div>
                         <strong>My Cart</strong>
                         <p>View items in your cart</p>
                     </div>
-                    <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                    <i class="fa-solid fa-chevron-right"></i>
                 </a>
+
                 <a href="checkout.html" class="account-menu-item">
                     <i class="fa-solid fa-bag-shopping"></i>
                     <div>
                         <strong>Checkout</strong>
                         <p>Complete your pending purchase</p>
                     </div>
-                    <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                    <i class="fa-solid fa-chevron-right"></i>
                 </a>
             </div>
 
@@ -63,26 +59,37 @@
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 Buyit. All rights reserved.</p>
-    </footer>
-
+    <script src="js/script.js"></script>
     <script type="module" src="js/auth.js"></script>
-    <script type="module">
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        // auth.js handles the redirect if not logged in
-        document.addEventListener('DOMContentLoaded', () => {
-            // auth.js already sets user-email; set the username heading too
-            const emailEl = document.getElementById('user-email');
-            const observer = new MutationObserver(() => {
-                const email = emailEl.textContent;
-                if (email && email !== 'Loading...') {
-                    const name = email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-                    document.getElementById('account-username').textContent = name;
-                }
-            });
-            observer.observe(emailEl, { childList: true, characterData: true, subtree: true });
+
+    <script>
+        const emailElement = document.getElementById('user-email');
+        const usernameElement = document.getElementById('account-username');
+
+        // Turns "john.doe@gmail.com" into "John Doe"
+        function nameFromEmail(email) {
+            return email
+                .split('@')[0]
+                .replace(/[._]/g, ' ')
+                .replace(/\b\w/g, letter => letter.toUpperCase());
+        }
+
+        // auth.js writes the email into the page once the user is known.
+        // Watch for that change and show the matching name in the heading.
+        const observer = new MutationObserver(() => {
+            const email = emailElement.textContent;
+
+            if (email && email !== 'Loading...') {
+                usernameElement.textContent = nameFromEmail(email);
+            }
+        });
+
+        observer.observe(emailElement, {
+            childList: true,
+            characterData: true,
+            subtree: true
         });
     </script>
 </body>
+
 </html>

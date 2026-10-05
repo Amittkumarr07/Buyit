@@ -89,7 +89,9 @@ function validateStep1() {
 }
 
 function validateStep2() {
-    const method = document.querySelector('input[name="payment"]:checked').value;
+    const checked = document.querySelector('input[name="payment"]:checked');
+    if (!checked) { showError('Please choose a payment method.'); return false; }
+    const method = checked.value;
     if (method === 'upi') {
         const upi = document.getElementById('upi-id').value.trim();
         if (!upi.includes('@')) {
@@ -101,8 +103,17 @@ function validateStep2() {
         const num = document.getElementById('card-number').value.replace(/\s/g, '');
         const exp = document.getElementById('card-expiry').value.trim();
         const cvv = document.getElementById('card-cvv').value.trim();
-        if (num.length < 16 || exp.length < 5 || cvv.length < 3) {
+        if (num.length < 16 || !/^\d{3}$/.test(cvv)) {
             showError('Please fill in all card details correctly.');
+            return false;
+        }
+        const m = exp.match(/^(\d{2})\/(\d{2})$/);
+        const now = new Date();
+        const month = m ? parseInt(m[1], 10) : 0;
+        const year  = m ? 2000 + parseInt(m[2], 10) : 0;
+        if (!m || month < 1 || month > 12 || year < now.getFullYear() ||
+            (year === now.getFullYear() && month < now.getMonth() + 1)) {
+            showError('Please enter a valid, unexpired card expiry date (MM/YY).');
             return false;
         }
     }
@@ -128,11 +139,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // card number: digits only, grouped as "1234 5678 9012 3456"
     const cardInput = document.getElementById('card-number');
     if (cardInput) {
         cardInput.addEventListener('input', (e) => {
             let val = e.target.value.replace(/\D/g, '').substring(0, 16);
             e.target.value = val.replace(/(.{4})/g, '$1 ').trim();
+        });
+    }
+
+    // auto-insert the "/" while typing the expiry date, digits only
+    const expInput = document.getElementById('card-expiry');
+    if (expInput) {
+        expInput.addEventListener('input', (e) => {
+            let v = e.target.value.replace(/\D/g, '').substring(0, 4);
+            if (v.length > 2) v = v.slice(0, 2) + '/' + v.slice(2);
+            e.target.value = v;
+        });
+    }
+
+    // CVV: digits only
+    const cvvInput = document.getElementById('card-cvv');
+    if (cvvInput) {
+        cvvInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g, '');
         });
     }
 
@@ -159,9 +189,9 @@ function renderCheckoutSummary() {
         total += item.price * item.quantity;
         list.innerHTML += `
             <div class="checkout-summary-item">
-                <img src="${item.image}" alt="${item.name}">
+                <img src="${item.image}" alt="${esc(item.name)}">
                 <div>
-                    <p class="summary-item-name">${item.name}</p>
+                    <p class="summary-item-name">${esc(item.name)}</p>
                     <p class="summary-item-qty">Qty: ${item.quantity}</p>
                 </div>
                 <span class="summary-item-price">₹${(item.price * item.quantity).toLocaleString('en-IN')}</span>
@@ -186,15 +216,15 @@ function populateReview() {
     const methodLabels = { cod: 'Cash on Delivery', upi: 'UPI', card: 'Credit / Debit Card' };
 
     document.getElementById('review-address').innerHTML = `
-        <p><strong>${name}</strong> &nbsp;|&nbsp; ${phone}</p>
-        <p>${address}, ${city}, ${state} – ${pin}</p>
+        <p><strong>${esc(name)}</strong> &nbsp;|&nbsp; ${esc(phone)}</p>
+        <p>${esc(address)}, ${esc(city)}, ${esc(state)} – ${esc(pin)}</p>
     `;
     document.getElementById('review-payment').innerHTML = `<p>${methodLabels[method]}</p>`;
 
     const cart = JSON.parse(localStorage.getItem('buyit_cart')) || [];
     let itemsHTML = '';
     cart.forEach(item => {
-        itemsHTML += `<p style="margin:4px 0;">• ${item.name} × ${item.quantity} — ₹${(item.price * item.quantity).toLocaleString('en-IN')}</p>`;
+        itemsHTML += `<p style="margin:4px 0;">• ${esc(item.name)} × ${item.quantity} — ₹${(item.price * item.quantity).toLocaleString('en-IN')}</p>`;
     });
     document.getElementById('review-items').innerHTML = itemsHTML;
 }
@@ -230,7 +260,17 @@ async function placeOrder() {
     const paymentMethod = methodLabels[methodValue];
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-    const newOrder = { orderId, orderDate, deliveryDate, address: fullAddress, paymentMethod, items: cart, total, status: 'Placed' };
+    const newOrder = {
+        orderId,
+        orderDate,
+        deliveryDate,
+        address: fullAddress,
+        paymentMethod,
+        items: cart,
+        total,
+        status: 'Placed',
+        userEmail: getCurrentUserEmail()
+    };
 
     const allOrders = JSON.parse(localStorage.getItem('buyit_orders')) || [];
     allOrders.push(newOrder);
@@ -275,7 +315,11 @@ async function sendConfirmationEmail(order, customerName) {
     };
 
     try {
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+        // don't let a slow/blocked email service keep the customer stuck on "Placing Order..."
+        await Promise.race([
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams),
+            new Promise((_, rej) => setTimeout(() => rej(new Error('EmailJS timeout')), 8000))
+        ]);
         console.log('Confirmation email sent to', userEmail);
     } catch (err) {
         console.error('EmailJS send failed:', err);

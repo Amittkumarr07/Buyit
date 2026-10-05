@@ -5,43 +5,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buyit - Home</title>
+
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+    <!-- Adds the navbar (and footer) to every page -->
+    <script src="js/layout.js"></script>
 
-    <nav class="navbar">
-        <a href="index.html" class="logo-link">
-            <div class="logo">Buy<span>it</span></div>
-        </a>
+    <!-- Hero banner -->
+    <header class="hero">
+        <div class="hero-bg"></div>
 
-        <form class="search-container" id="search-form">
-            <input type="search" id="search-input" placeholder="Search products..." required>
-            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </form>
+        <div class="hero-inner">
+            <div class="hero-copy">
+                <span class="hero-tag">
+                    <i class="fa-solid fa-bolt"></i> Festive season sale is live
+                </span>
 
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="products.html">Shop</a></li>
-                    
-            <li id="nav-login-btn"><a href="login.html" class="login-btn">Login</a></li>
-                    
-            <li id="nav-user-profile" style="display: none;">
-                <a href="account.html" id="nav-username" style="color: var(--primary-color); font-weight: bold;">User</a>
-            </li>
-                    
-            <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
-        </ul>
-    </nav>
+                <h1>Shop smarter.<br><span>Live better.</span></h1>
 
-    <header class="main-banner">
-        <img src="images/Banner.jpg" alt="Promotional Banner">
+                <p>
+                    Phones, laptops, fashion, watches, audio and books &mdash;
+                    everything you love, delivered free to your door.
+                </p>
+
+                <div class="hero-cta">
+                    <a href="products.html" class="hero-btn primary">
+                        Shop Now <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="products.html#mobiles" class="hero-btn ghost">Explore Mobiles</a>
+                </div>
+
+                <ul class="hero-perks">
+                    <li><i class="fa-solid fa-truck-fast"></i> Free delivery</li>
+                    <li><i class="fa-solid fa-shield-halved"></i> Secure checkout</li>
+                    <li><i class="fa-solid fa-hand-holding-dollar"></i> Cash on delivery</li>
+                </ul>
+            </div>
+
+            <!-- Decorative product cards on the right -->
+            <div class="hero-visual" aria-hidden="true">
+                <div class="hero-card c1">
+                    <img src="images/mobile-image.jpg" alt="">
+                    <span>Mobiles<small>from &#8377;13,499</small></span>
+                </div>
+
+                <div class="hero-card c2">
+                    <img src="images/laptop-image.jpg" alt="">
+                    <span>Laptops<small>from &#8377;44,990</small></span>
+                </div>
+
+                <div class="hero-card c3">
+                    <img src="images/shoes-image.jpg" alt="">
+                    <span>Sneakers<small>from &#8377;899</small></span>
+                </div>
+
+                <div class="hero-badge">Up to<b>40% OFF</b></div>
+            </div>
+        </div>
     </header>
 
+    <!-- Category links -->
     <section class="categories">
         <h2>Shop by Category</h2>
+
         <div class="category-grid">
             <a href="products.html#mobiles" class="category-card">Mobiles</a>
             <a href="products.html#laptops" class="category-card">Laptops</a>
@@ -53,55 +83,34 @@
         </div>
     </section>
 
+    <!-- Featured products (filled in by renderFeatured below) -->
     <section class="featured-products">
         <h2>Featured Products</h2>
-        <div class="product-grid">
 
-            <div class="product-card">
-                <a href="product-details.html#motorola-edge">
-                    <img src="images/mobile-image.jpg" alt="Smartphone">
-                    <h3>MOTOROLA Edge 60 Fusion 5G</h3>
-                    <p class="price">₹29,999.0</p>
-                </a>
-                <button class="add-to-cart"
-                    onclick="addToCart('motorola-edge', 'MOTOROLA Edge 60 Fusion 5G', '29999', 'images/mobile-image.jpg')">Add
-                    to Cart</button>
-            </div>
+        <div class="product-grid" id="featured-grid"></div>
 
-            <div class="product-card">
-                <a href="product-details.html#lenovo-ideapad">
-                    <img src="images/laptop-image.jpg" alt="Laptop">
-                    <h3>Lenovo IdeaPad Slim 3</h3>
-                    <p class="price">₹69,999.0</p>
-                </a>
-                <button class="add-to-cart"
-                    onclick="addToCart('lenovo-ideapad', 'Lenovo IdeaPad Slim 3', '69999', 'images/laptop-image.jpg')">Add
-                    to Cart</button>
-            </div>
-
-            <div class="product-card">
-                <a href="product-details.html#running-shoes">
-                    <img src="images/shoes-image.jpg" alt="Running Shoes">
-                    <h3>Running Shoes</h3>
-                    <p class="price">₹3,999.0</p>
-                </a>
-                <button class="add-to-cart"
-                    onclick="addToCart('running-shoes', 'Running Shoes', '3999', 'images/shoes-image.jpg')">Add to
-                    Cart</button>
-            </div>
-
-        </div>
         <div style="margin-top: 30px; text-align: center;">
-            <a href="products.html" class="btn" style="width: auto; display: inline-block; padding: 10px 30px;">See
-                more</a>
+            <a href="products.html" class="btn" style="width: auto; display: inline-block; padding: 10px 30px;">
+                See more
+            </a>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 Buyit. All rights reserved.</p>
-    </footer>
-
+    <script src="js/products.js"></script>
     <script src="js/script.js"></script>
     <script type="module" src="js/auth.js"></script>
+
+    <script>
+        // Product ids to show in the "Featured Products" section
+        renderFeatured([
+            'motorola-edge',
+            'lenovo-ideapad',
+            'running-shoes',
+            'smartwatch-pro',
+            'tws-earbuds',
+            'atomic-habits'
+        ]);
+    </script>
 </body>
+
 </html>

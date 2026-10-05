@@ -6,6 +6,8 @@ let cart = JSON.parse(localStorage.getItem('buyit_cart')) || [];
 
 // ---- ADD TO CART ----
 function addToCart(id, name, price, image) {
+    // re-read storage so a second open tab can't overwrite the cart with stale data
+    cart = JSON.parse(localStorage.getItem('buyit_cart')) || [];
     const existingItem = cart.find(item => item.id === id);
     if (existingItem) {
         existingItem.quantity += 1;
@@ -19,6 +21,7 @@ function addToCart(id, name, price, image) {
 
 // ---- REMOVE FROM CART ----
 function removeFromCart(id) {
+    cart = JSON.parse(localStorage.getItem('buyit_cart')) || [];
     cart = cart.filter(item => item.id !== id);
     saveCart();
     renderCart();
@@ -26,6 +29,7 @@ function removeFromCart(id) {
 
 // ---- UPDATE QUANTITY ----
 function updateQuantity(id, newQuantity) {
+    cart = JSON.parse(localStorage.getItem('buyit_cart')) || [];
     const item = cart.find(item => item.id === id);
     if (item) {
         item.quantity = parseInt(newQuantity);
@@ -51,7 +55,7 @@ function showCartToast(productName) {
 
     const toast = document.createElement('div');
     toast.id = 'cart-toast';
-    toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>${productName}</strong> added to cart`;
+    toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>${esc(productName)}</strong> added to cart`;
     document.body.appendChild(toast);
 
     // Trigger animation
@@ -93,9 +97,9 @@ function renderCart() {
         subtotal += item.price * item.quantity;
         const itemHTML = `
             <div class="cart-item">
-                <img src="${item.image}" alt="${item.name}">
+                <img src="${item.image}" alt="${esc(item.name)}">
                 <div class="item-details">
-                    <h3>${item.name}</h3>
+                    <h3>${esc(item.name)}</h3>
                     <p class="price">₹${item.price.toLocaleString('en-IN')}</p>
                 </div>
                 <div class="item-actions">
@@ -144,7 +148,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const urlParams   = new URLSearchParams(window.location.search);
     const searchQuery = urlParams.get('q');
 
-    if (searchQuery && window.location.href.includes('products.html')) {
+    if (searchQuery && window.location.pathname.endsWith('products.html')) {
         if (searchInput) searchInput.value = searchQuery;
         executeSearch(searchQuery);
     }
@@ -153,8 +157,8 @@ window.addEventListener('DOMContentLoaded', () => {
         searchForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const query = searchInput.value.trim().toLowerCase();
-            if (window.location.href.includes('products.html')) {
-                window.history.pushState({}, '', '?q=' + query);
+            if (window.location.pathname.endsWith('products.html')) {
+                window.history.pushState({}, '', '?q=' + encodeURIComponent(query));
                 executeSearch(query);
             } else {
                 window.location.href = `products.html?q=${encodeURIComponent(query)}`;
@@ -164,43 +168,49 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function executeSearch(query) {
-    const allProductCards    = document.querySelectorAll('.product-card');
-    const categoriesSection  = document.querySelector('.categories');
-    const allProductSections = document.querySelectorAll('section[id]');
+    query = (query || '').trim().toLowerCase();
+    const categoriesSection = document.querySelector('.categories');
+    const sections = document.querySelectorAll('#catalog section[id]');
     let foundAny = false;
 
-    if (categoriesSection) categoriesSection.style.display = 'none';
+    if (categoriesSection) categoriesSection.style.display = query ? 'none' : '';
 
-    // Show all sections during search so cards inside them are visible
-    allProductSections.forEach(s => { s.style.display = 'block'; });
-
-    allProductCards.forEach(card => {
-        const title = card.querySelector('h3').innerText.toLowerCase();
-        if (title.includes(query.toLowerCase())) {
-            card.style.display = 'flex';
-            foundAny = true;
-        } else {
-            card.style.display = 'none';
-        }
+    sections.forEach(sec => {
+        let sectionHasMatch = false;
+        sec.querySelectorAll('.product-card').forEach(card => {
+            const match = !query || card.querySelector('h3').innerText.toLowerCase().includes(query);
+            card.style.display = match ? 'flex' : 'none';
+            if (match) sectionHasMatch = true;
+        });
+        // hide whole category (heading included) when nothing in it matches
+        sec.style.display = sectionHasMatch ? '' : 'none';
+        if (sectionHasMatch) foundAny = true;
     });
 
-    let noResultsMsg = document.getElementById('no-results-msg');
+    let msg = document.getElementById('no-results-msg');
     if (!foundAny) {
-        if (!noResultsMsg) {
-            noResultsMsg = document.createElement('h2');
-            noResultsMsg.id = 'no-results-msg';
-            noResultsMsg.style.cssText = 'text-align:center; padding:50px; grid-column: 1/-1;';
-            noResultsMsg.innerText = `No results found for "${query}"`;
-            const firstGrid = document.querySelector('.product-grid');
-            if (firstGrid) firstGrid.appendChild(noResultsMsg);
-        } else {
-            noResultsMsg.style.display = 'block';
-            noResultsMsg.innerText = `No results found for "${query}"`;
+        if (!msg) {
+            msg = document.createElement('h2');
+            msg.id = 'no-results-msg';
+            msg.style.cssText = 'text-align:center;padding:50px;';
+            const catalog = document.getElementById('catalog');
+            if (catalog) catalog.appendChild(msg);
         }
-    } else if (noResultsMsg) {
-        noResultsMsg.style.display = 'none';
+        msg.style.display = 'block';
+        msg.textContent = `No results found for "${query}"`;
+    } else if (msg) {
+        msg.style.display = 'none';
     }
 }
+
+// Back/forward buttons should re-run (or clear) the search
+window.addEventListener('popstate', () => {
+    if (!window.location.pathname.endsWith('products.html')) return;
+    const q = new URLSearchParams(window.location.search).get('q') || '';
+    const input = document.getElementById('search-input');
+    if (input) input.value = q;
+    executeSearch(q);
+});
 
 // Expose functions globally for inline onclick handlers
 window.addToCart      = addToCart;

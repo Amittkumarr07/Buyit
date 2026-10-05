@@ -74,6 +74,8 @@ if (authForm) {
 
 // ---- AUTH STATE LISTENER (runs on every page) ----
 onAuthStateChanged(auth, (user) => {
+    window.buyitUserEmail = user ? user.email : null;
+    document.dispatchEvent(new CustomEvent('buyit-auth', { detail: { email: window.buyitUserEmail } }));
     const navLoginBtn    = document.getElementById('nav-login-btn');
     const navUserProfile = document.getElementById('nav-user-profile');
     const navUsername    = document.getElementById('nav-username');

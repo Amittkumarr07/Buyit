@@ -11,7 +11,7 @@ The project is structured to prioritize code reuse and visual consistency. Rathe
 ### HTML Structure
 The application is divided into specific, purpose-built pages to ensure a smooth user journey from product discovery to checkout.
 
-* **index.html:** The main landing page featuring promotional banners and category navigation.
+* **index.html:** The main landing page featuring a responsive hero banner (pure HTML/CSS, no image file) and category navigation.
 * **products.html:** The primary storefront listing all available products.
 * **product-details.html:** A dynamic view that isolates specific product information, pricing, and available offers.
 * **cart.html:** The shopping cart interface where users can review their selected items and total costs.
@@ -36,3 +36,6 @@ The application logic is broken down into specific modules to handle distinct fu
 1. **State Management:** When a user clicks "Add to Cart", `script.js` captures the product data and stores it in the browser's Local Storage. This ensures the cart data persists even if the user refreshes the page or navigates away.
 2. **Authentication:** Users can register or log in using Firebase Authentication. The `auth.js` file constantly listens for changes in the authentication state. If a user logs in, the script instantly updates the navigation bar across the entire website to replace the "Login" button with their username.
 3. **Order Processing:** During checkout, the user inputs their shipping details. `checkout.js` captures this data alongside the cart total. It then utilizes the EmailJS client-side service to securely package this data and send a branded HTML receipt directly to the user's inbox without requiring a dedicated backend server.
+
+## Product Images
+Every product in `js/products.js` has an image. Real photos live in `images/`, and illustrated product images live in `images/products/` (one SVG per product, named after the product id). To use a real photo instead, drop it in `images/` and change that product's image path in `js/products.js`.
