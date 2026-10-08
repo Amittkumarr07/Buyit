@@ -31,7 +31,7 @@ The application logic is broken down into specific modules to handle distinct fu
 * **auth.js:** The authentication controller. This file connects directly to the Google Firebase console to handle secure user registration, email/password logins, and Google popup authentication. It also manages the global navigation bar state, hiding or showing user profiles based on active sessions.
 * **checkout.js:** The order processing script. It handles the form data and communicates with the EmailJS API. Once an order is placed, it calculates the expected delivery date and triggers an automated confirmation email to the buyer.
 * **layout.js:** The layout controller. This file contains all the layout of the web pages like header and footer. This allows the website to main its layout cosistancy across the webpages.
-* **products.js:** The Product information storage file. This file contains all the information of the product available on the website. This helps in the make the code shorter and easy to reuse all the products details anywhere.
+* **products.js:** The Product details storage file. This file contains all the details of the product available on the website. This helps in making the code shorter and easy to reuse all the products details anywhere.
   
 ## How It Works
 
