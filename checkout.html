@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
 
-    <!-- EmailJS sends the order confirmation email -->
+    <!-- EmailJS sends the order confirmation email once the order is sucessful -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
@@ -44,7 +44,7 @@
 
                         <div class="form-group">
                             <label>Phone Number *</label>
-                            <input type="tel" id="phone" placeholder="10-digit mobile number">
+                            <input type="tel" id="phone" placeholder="10-digit mobile number" maxlength="10">
                         </div>
 
                         <div class="form-group full-width">
@@ -139,7 +139,7 @@
                         </div>
                     </label>
 
-                    <!-- Extra fields, revealed when UPI or Card is selected -->
+                    <!-- shown when user select online payments -->
                     <div class="payment-fields hidden" id="upi-fields">
                         <div class="form-group">
                             <label>UPI ID</label>
@@ -191,7 +191,7 @@
                         <div id="review-items" class="review-box"></div>
                     </div>
 
-                    <!-- Validation and order errors are shown here -->
+                    <!-- Validation and order errors -->
                     <p id="place-order-error" style="color: red; margin-top: 10px; display: none;"></p>
 
                     <div class="step-btn-row">

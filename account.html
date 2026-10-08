@@ -20,7 +20,7 @@
                 <i class="fa-solid fa-circle-user"></i>
             </div>
 
-            <!-- Both are filled in once Firebase tells us who is logged in -->
+            <!-- receives from firebase who is logining -->
             <h2 id="account-username">Loading...</h2>
             <p id="user-email" class="account-email">Loading...</p>
 
@@ -66,7 +66,7 @@
         const emailElement = document.getElementById('user-email');
         const usernameElement = document.getElementById('account-username');
 
-        // Turns "john.doe@gmail.com" into "John Doe"
+        // Uses the name from email id
         function nameFromEmail(email) {
             return email
                 .split('@')[0]
@@ -74,8 +74,8 @@
                 .replace(/\b\w/g, letter => letter.toUpperCase());
         }
 
-        // auth.js writes the email into the page once the user is known.
-        // Watch for that change and show the matching name in the heading.
+        // Uses auth.js to show the email id
+        // For viewing the email ID on the navigation bar
         const observer = new MutationObserver(() => {
             const email = emailElement.textContent;
 
