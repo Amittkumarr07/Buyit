@@ -40,4 +40,4 @@ The application logic is broken down into specific modules to handle distinct fu
 3. **Order Processing:** During checkout, the user inputs their shipping details. `checkout.js` captures this data alongside the cart total. It then utilizes the EmailJS client-side service to securely package this data and send a branded HTML receipt directly to the user's inbox without requiring a dedicated backend server.
 
 ## Product Images
-Every product in `js/products.js` has an image. Real photos live in `images/`, and illustrated product images live in `images/products/` (one SVG per product, named after the product id). To use a real photo instead, drop it in `images/` and change that product's image path in `js/products.js`.
+Every product in `js/products.js` has an image. Real photos live in `images/`, and illustrated product images live in `images/products/` (one SVG per product, named after the product id).
