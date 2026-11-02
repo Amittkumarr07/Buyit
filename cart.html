@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyit - Cart</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <script src="js/layout.js"></script>
+
+    <section class="cart-section">
+        <h2>Your Shopping Cart</h2>
+
+        <div class="cart-container">
+            <!-- fetch items from renderCart() in script.js to shown here -->
+            <div class="cart-items" id="cart-items-container"></div>
+
+            <!-- Price summary -->
+            <div class="cart-summary">
+                <h3>Order Summary</h3>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">₹0.00</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Delivery</span>
+                    <span style="color: var(--primary-color);">FREE</span>
+                </div>
+
+                <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
+
+                <div class="summary-row total-row">
+                    <span>Total Amount</span>
+                    <span id="cart-total">₹0.00</span>
+                </div>
+
+                <button class="btn checkout-btn" style="margin-top: 20px;">
+                    Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/script.js"></script>
+    <script type="module" src="js/auth.js"></script>
+</body>
+
+</html>

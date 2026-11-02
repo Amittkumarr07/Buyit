@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyit - My Orders</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <script src="js/layout.js"></script>
+
+    <section>
+        <div class="orders-header">
+            <h2>My Orders</h2>
+            <a href="products.html" class="btn outline-btn" style="width: auto; padding: 8px 20px;">
+                Continue Shopping
+            </a>
+        </div>
+
+        <!-- Order cards are shown here by renderOrders() -->
+        <div id="orders-container"></div>
+    </section>
+
+    <!-- "Are you sure?" popup shown when cancelling an order -->
+    <div class="modal-overlay hidden" id="cancel-modal">
+        <div class="modal-box">
+            <h3>Cancel This Order?</h3>
+            <p style="margin-top: 10px;">
+                Cancel order <strong id="modal-order-id"></strong>? This cannot be undone.
+            </p>
+
+            <div class="modal-actions">
+                <button class="btn outline-btn" onclick="closeModal()">Keep Order</button>
+                <button class="btn cancel-confirm-btn" id="confirm-cancel-btn">Yes, Cancel It</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script type="module" src="js/auth.js"></script>
+
+    <script>
+        // Icons for order status
+        const STATUS_ICONS = {
+            Placed: 'fa-clock',
+            Processing: 'fa-gear',
+            Shipped: 'fa-truck',
+            Delivered: 'fa-circle-check',
+            Cancelled: 'fa-ban'
+        };
+
+        function formatPrice(amount) {
+            return '₹' + Number(amount).toLocaleString('en-IN');
+        }
+
+        // Builds the HTML for one order card
+        function buildOrderCard(order) {
+            // Orders that are already delivered or cancelled can't be cancelled again
+            const canCancel = order.status !== 'Delivered' && order.status !== 'Cancelled';
+            const statusIcon = STATUS_ICONS[order.status] || 'fa-clock';
+
+            const itemsHTML = order.items.map(item => `
+                <div class="order-item-row">
+                    <img src="${item.image}" alt="">
+                    <div class="order-item-info">
+                        <strong>${esc(item.name)}</strong>
+                        <p>Qty: ${item.quantity} &nbsp; ${formatPrice(item.price)} each</p>
+                    </div>
+                </div>
+            `).join('');
+
+            const cancelButton = canCancel
+                ? `<button class="btn cancel-order-btn" onclick="openCancelModal('${order.orderId}')">Cancel Order</button>`
+                : '';
+
+            return `
+                <div class="order-card">
+                    <div class="order-card-header">
+                        <div class="order-meta">
+                            <span class="order-id">Order #${order.orderId}</span>
+                            <span>${order.orderDate}</span>
+                        </div>
+                        <span class="status-badge status-${order.status.toLowerCase()}">
+                            <i class="fa-solid ${statusIcon}"></i> ${order.status}
+                        </span>
+                    </div>
+
+                    ${itemsHTML}
+
+                    <div class="order-card-footer" style="margin-top: 12px;">
+                        <div class="order-footer-info">
+                            <p><i class="fa-solid fa-location-dot"></i> ${esc(order.address)}</p>
+                            <p><i class="fa-solid fa-truck"></i> Expected by <strong>${order.deliveryDate}</strong></p>
+                            <p><i class="fa-solid fa-wallet"></i> ${order.paymentMethod}</p>
+                        </div>
+
+                        <div class="order-footer-total">
+                            <span>Order Total</span>
+                            <span class="order-total-amount">${formatPrice(order.total)}</span>
+                            ${cancelButton}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderOrders() {
+            const container = document.getElementById('orders-container');
+            const currentUserEmail = window.buyitUserEmail;
+            const savedOrders = JSON.parse(localStorage.getItem('buyit_orders')) || [];
+
+            // Only show this user's orders (older orders with no email are shown to everyone)
+            const myOrders = savedOrders.filter(order => !order.userEmail || order.userEmail === currentUserEmail);
+
+            if (myOrders.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-orders">
+                        <i class="fa-solid fa-box-open"></i>
+                        <h3>No orders yet</h3>
+                        <p>Start shopping!</p>
+                        <a href="products.html" class="btn" style="width: auto; display: inline-block; padding: 10px 30px; margin-top: 15px;">Shop Now</a>
+                    </div>
+                `;
+                return;
+            }
+
+            // Newest order first
+            container.innerHTML = [...myOrders].reverse().map(buildOrderCard).join('');
+        }
+
+        // ---- Cancel order popup ----
+        function openCancelModal(orderId) {
+            document.getElementById('modal-order-id').textContent = '#' + orderId;
+            document.getElementById('cancel-modal').classList.remove('hidden');
+
+            document.getElementById('confirm-cancel-btn').onclick = () => {
+                const savedOrders = JSON.parse(localStorage.getItem('buyit_orders')) || [];
+                const order = savedOrders.find(item => item.orderId === orderId);
+
+                if (order) {
+                    order.status = 'Cancelled';
+                    localStorage.setItem('buyit_orders', JSON.stringify(savedOrders));
+                }
+
+                closeModal();
+                renderOrders();
+            };
+        }
+
+        function closeModal() {
+            document.getElementById('cancel-modal').classList.add('hidden');
+        }
+
+        // Clicking the dark area outside the popup also closes it
+        document.getElementById('cancel-modal').addEventListener('click', event => {
+            if (event.target === event.currentTarget) {
+                closeModal();
+            }
+        });
+
+        // Re-draw once Firebase has told us who is logged in, and also right away
+        document.addEventListener('buyit-auth', renderOrders);
+        renderOrders();
+    </script>
+</body>
+
+</html>

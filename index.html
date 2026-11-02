@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyit - Home</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Adds the navbar and footer -->
+    <script src="js/layout.js"></script>
+
+    <!-- Hero banner -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+
+        <div class="hero-inner">
+            <div class="hero-copy">
+                <span class="hero-tag">
+                    <i class="fa-solid fa-bolt"></i> Festive season sale is live
+                </span>
+
+                <h1>Shop smarter.<br><span>Live better.</span></h1>
+
+                <p>
+                    Phones, laptops, fashion, watches, audio and books &mdash;
+                    everything you love, delivered free to your door.
+                </p>
+
+                <div class="hero-cta">
+                    <a href="products.html" class="hero-btn primary">
+                        Shop Now <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="products.html#mobiles" class="hero-btn ghost">Explore Mobiles</a>
+                </div>
+
+                <ul class="hero-perks">
+                    <li><i class="fa-solid fa-truck-fast"></i> Free delivery</li>
+                    <li><i class="fa-solid fa-shield-halved"></i> Secure checkout</li>
+                    <li><i class="fa-solid fa-hand-holding-dollar"></i> Cash on delivery</li>
+                </ul>
+            </div>
+
+            <!-- Decorative product cards on the right -->
+            <div class="hero-visual" aria-hidden="true">
+                <div class="hero-card c1">
+                    <img src="images/mobile-image.jpg" alt="">
+                    <span>Mobiles<small>from &#8377;13,499</small></span>
+                </div>
+
+                <div class="hero-card c2">
+                    <img src="images/laptop-image.jpg" alt="">
+                    <span>Laptops<small>from &#8377;44,990</small></span>
+                </div>
+
+                <div class="hero-card c3">
+                    <img src="images/shoes-image.jpg" alt="">
+                    <span>Sneakers<small>from &#8377;899</small></span>
+                </div>
+
+                <div class="hero-badge">Up to<b>40% OFF</b></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category links -->
+    <section class="categories">
+        <h2>Shop by Category</h2>
+
+        <div class="category-grid">
+            <a href="products.html#mobiles" class="category-card">Mobiles</a>
+            <a href="products.html#laptops" class="category-card">Laptops</a>
+            <a href="products.html#clothes" class="category-card">Clothes</a>
+            <a href="products.html#shoes" class="category-card">Shoes</a>
+            <a href="products.html#watches" class="category-card">Watches</a>
+            <a href="products.html#headphones" class="category-card">Headphones</a>
+            <a href="products.html#books" class="category-card">Books</a>
+        </div>
+    </section>
+
+    <!-- Featured products -->
+    <section class="featured-products">
+        <h2>Featured Products</h2>
+
+        <div class="product-grid" id="featured-grid"></div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <a href="products.html" class="btn" style="width: auto; display: inline-block; padding: 10px 30px;">
+                See more
+            </a>
+        </div>
+    </section>
+
+    <script src="js/products.js"></script>
+    <script src="js/script.js"></script>
+    <script type="module" src="js/auth.js"></script>
+
+    <script>
+        // Adds products to featured products from product.js
+        renderFeatured([
+            'motorola-edge',
+            'lenovo-ideapad',
+            'running-shoes',
+            'smartwatch-pro',
+            'tws-earbuds',
+            'atomic-habits'
+        ]);
+    </script>
+</body>
+
+</html>

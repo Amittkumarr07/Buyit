@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyit - Products</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <script src="js/layout.js"></script>
+
+    <!-- Category shortcuts -->
+    <section class="categories">
+        <h2>Shop by Category</h2>
+
+        <div class="category-grid">
+            <a href="#mobiles" class="category-card">Mobiles</a>
+            <a href="#laptops" class="category-card">Laptops</a>
+            <a href="#clothes" class="category-card">Clothes</a>
+            <a href="#shoes" class="category-card">Shoes</a>
+            <a href="#watches" class="category-card">Watches</a>
+            <a href="#headphones" class="category-card">Headphones</a>
+            <a href="#books" class="category-card">Books</a>
+            <a href="#drones" class="category-card">Drones</a>
+        </div>
+    </section>
+
+    <!-- All product sections are built by renderCatalog() -->
+    <div id="catalog"></div>
+
+    <script src="js/products.js"></script>
+    <script>renderCatalog();</script>
+    <script src="js/script.js"></script>
+    <script type="module" src="js/auth.js"></script>
+
+    <script>
+        // If the URL has a #category (e.g. products.html#shoes), scroll to it
+        // once the catalog has been built.
+        if (location.hash) {
+            const target = document.querySelector(location.hash);
+            if (target) {
+                target.scrollIntoView();
+            }
+        }
+    </script>
+</body>
+
+</html>

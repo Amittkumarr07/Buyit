@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyit - Product Details</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2a9a534f60.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <script src="js/layout.js"></script>
+
+    <div id="pd-root"></div>
+
+    <script src="js/products.js"></script>
+    <script src="js/script.js"></script>
+    <script type="module" src="js/auth.js"></script>
+
+    <script>
+        // The product id comes from the URL, e.g. product-details.html#ikigai
+        function showProduct() {
+            const productId = location.hash.slice(1);
+            const product = PRODUCTS.find(item => item.id === productId);
+            const root = document.getElementById('pd-root');
+
+            if (!product) {
+                root.innerHTML = '<div class="pd"><h2>Product not found.</h2></div>';
+                return;
+            }
+
+            document.title = 'Buyit - ' + product.name;
+
+            root.innerHTML = `
+                <div class="pd">
+                    <div class="pd-img">${imgTag(product)}</div>
+
+                    <div class="pd-info">
+                        <h1>${product.name}</h1>
+                        <p>${product.description}</p>
+                        <div class="pd-price">${rupee(product.price)}</div>
+
+                        <ul class="pd-offers">
+                            <li>Free delivery on this order</li>
+                            <li>Cash on Delivery, UPI and cards accepted</li>
+                            <li>Estimated delivery within 7 days</li>
+                        </ul>
+
+                        <div class="pd-actions">
+                            <button class="btn" id="pd-add">Add to Cart</button>
+                            <button class="btn" id="pd-buy" style="background: #555;">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // "Add to Cart" stays on this page and shows the toast
+            document.getElementById('pd-add').onclick = () => {
+                addToCart(product.id, product.name, product.price, imgOf(product));
+            };
+
+            // "Buy Now" adds the item and goes straight to the cart
+            document.getElementById('pd-buy').onclick = () => {
+                addToCart(product.id, product.name, product.price, imgOf(product));
+                location.href = 'cart.html';
+            };
+        }
+
+        showProduct();
+
+        // Re-draw when the #id in the URL changes without a full page reload
+        addEventListener('hashchange', showProduct);
+    </script>
+</body>
+
+</html>
